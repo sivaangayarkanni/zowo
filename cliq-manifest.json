@@ -41,5 +41,9 @@
       "description": "Show all available commands",
       "handler": "/cliq/help"
     }
-  ]
+  ],
+  "bot": {
+    "webhook": "https://your-app.onrender.com/api/cliq/webhook",
+    "welcome": "https://your-app.onrender.com/api/cliq/welcome"
+  }
 }

@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: zowo
+    env: node
+    plan: free
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars: # set secrets in Render dashboard; do NOT commit
+      - key: NODE_ENV
+        value: production

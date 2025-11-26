@@ -1,4 +1,5 @@
 {
+  "baseUrl": "https://your-app.onrender.com",
   "service": "ZohoProjects",
   "details": {
     "displayLabel": "ZOWO",
