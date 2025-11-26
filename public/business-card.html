@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOWO Business Card</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; padding: 10px; }
+        .card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .logo { font-size: 2rem; margin-bottom: 10px; }
+        .title { font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; }
+        .subtitle { font-size: 0.9rem; opacity: 0.9; margin-bottom: 15px; }
+        .stats { display: flex; justify-content: space-around; margin: 15px 0; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 1.5rem; font-weight: bold; display: block; }
+        .stat-label { font-size: 0.7rem; opacity: 0.8; }
+        .actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { flex: 1; padding: 8px; background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+        .btn:hover { background: rgba(255,255,255,0.3); }
+        .status { display: inline-block; padding: 4px 8px; background: #27ae60; border-radius: 12px; font-size: 0.7rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">🚀</div>
+        <div class="title">ZOWO Monitor</div>
+        <div class="subtitle">Real-time System Health</div>
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number" id="healthScore">--</span>
+                <span class="stat-label">Health</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="workflowCount">--</span>
+                <span class="stat-label">Workflows</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="errorCount">--</span>
+                <span class="stat-label">Errors</span>
+            </div>
+        </div>
+        
+        <div class="status" id="systemStatus">System Online</div>
+        
+        <div class="actions">
+            <button class="btn" onclick="openDashboard()">Dashboard</button>
+            <button class="btn" onclick="refreshData()">Refresh</button>
+        </div>
+    </div>
+
+    <script>
+        async function loadData() {
+            try {
+                const baseUrl = 'https://discursively-uninfectable-myrna.ngrok-free.dev';
+                const [health, workflows, errors] = await Promise.all([
+                    fetch(`${baseUrl}/api/health_score`).then(r => r.json()).catch(() => null),
+                    fetch(`${baseUrl}/api/workflows`).then(r => r.json()).catch(() => null),
+                    fetch(`${baseUrl}/api/error_logs`).then(r => r.json()).catch(() => null)
+                ]);
+
+                document.getElementById('healthScore').textContent = health ? health.score + '%' : '--';
+                document.getElementById('workflowCount').textContent = workflows ? workflows.length : '--';
+                document.getElementById('errorCount').textContent = errors ? errors.length : '--';
+                
+                const status = health && health.score > 80 ? 'System Healthy' : 'Needs Attention';
+                document.getElementById('systemStatus').textContent = status;
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function openDashboard() {
+            window.open('https://discursively-uninfectable-myrna.ngrok-free.dev/dashboard.html', '_blank');
+        }
+
+        function refreshData() {
+            loadData();
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadData);
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>

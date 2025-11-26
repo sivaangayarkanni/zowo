@@ -1,0 +1,19 @@
+{
+  "name": "zowo-backend",
+  "version": "1.1.0",
+  "description": "ZOWO Backend API for Zoho workflows, error logs, insights, and health monitoring",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["zoho", "workflow", "api", "backend"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "ZOWO Bot",
+  "description": "Monitor CRM workflows and get health alerts",
+  "version": "1.0.0",
+  "botScopes": ["chat:write", "chat:read"],
+  "messageHandler": "/cliq/message",
+  "webhookUrl": "/cliq/webhook",
+  "commands": [
+    {
+      "command": "/zowo-status",
+      "description": "Get CRM health status",
+      "handler": "/cliq/status"
+    },
+    {
+      "command": "/zowo-alerts",
+      "description": "View recent alerts",
+      "handler": "/cliq/alerts"
+    },
+    {
+      "command": "/zowo-report",
+      "description": "Generate quick report",
+      "handler": "/cliq/report"
+    },
+    {
+      "command": "/zowo-workflows",
+      "description": "List active workflows",
+      "handler": "/cliq/workflows"
+    },
+    {
+      "command": "/zowo-errors",
+      "description": "Show recent errors",
+      "handler": "/cliq/errors"
+    },
+    {
+      "command": "/zowo-performance",
+      "description": "Get performance metrics",
+      "handler": "/cliq/performance"
+    },
+    {
+      "command": "/zowo-help",
+      "description": "Show all available commands",
+      "handler": "/cliq/help"
+    }
+  ]
+}

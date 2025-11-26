@@ -1,0 +1,20 @@
+{
+  "service": "ZohoProjects",
+  "details": {
+    "displayLabel": "ZOWO",
+    "description": "Project workflow monitoring and analytics extension",
+    "version": "1.0.0",
+    "logoURL": "",
+    "supportedLanguages": ["en"]
+  },
+  "widgets": [
+    {
+      "location": "zohoProjects.project.home",
+      "url": "/dashboard.html",
+      "height": "400px",
+      "width": "100%"
+    }
+  ],
+  "connectors": [],
+  "functions": []
+}

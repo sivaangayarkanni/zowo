@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOWO Settings</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { color: #2c3e50; margin-bottom: 10px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #34495e; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 14px; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #3498db; }
+        .btn { background: #3498db; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 16px; width: 100%; margin-top: 10px; }
+        .btn:hover { background: #2980b9; }
+        .btn-secondary { background: #95a5a6; }
+        .btn-secondary:hover { background: #7f8c8d; }
+        .status { padding: 10px; border-radius: 6px; margin-top: 15px; text-align: center; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 ZOWO Settings</h1>
+            <p>Configure your ZOWO monitoring system</p>
+        </div>
+
+        <form id="settingsForm">
+            <div class="form-group">
+                <label for="apiUrl">API Base URL</label>
+                <input type="url" id="apiUrl" value="https://discursively-uninfectable-myrna.ngrok-free.dev/api" required>
+            </div>
+
+            <div class="form-group">
+                <label for="refreshInterval">Refresh Interval (seconds)</label>
+                <input type="number" id="refreshInterval" value="30" min="5" max="300" required>
+            </div>
+
+            <div class="form-group">
+                <label for="maxRecords">Max Records to Display</label>
+                <input type="number" id="maxRecords" value="5" min="1" max="50" required>
+            </div>
+
+            <div class="form-group">
+                <label for="autoRefresh">Auto Refresh</label>
+                <select id="autoRefresh">
+                    <option value="true">Enabled</option>
+                    <option value="false">Disabled</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="theme">Dashboard Theme</label>
+                <select id="theme">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Save Settings</button>
+            <button type="button" class="btn btn-secondary" onclick="testConnection()">Test Connection</button>
+        </form>
+
+        <div id="status" class="status" style="display: none;"></div>
+    </div>
+
+    <script>
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveSettings();
+        });
+
+        function saveSettings() {
+            const settings = {
+                apiUrl: document.getElementById('apiUrl').value,
+                refreshInterval: parseInt(document.getElementById('refreshInterval').value) * 1000,
+                maxRecords: parseInt(document.getElementById('maxRecords').value),
+                autoRefresh: document.getElementById('autoRefresh').value === 'true',
+                theme: document.getElementById('theme').value
+            };
+
+            localStorage.setItem('zowoSettings', JSON.stringify(settings));
+            showStatus('Settings saved successfully!', 'success');
+        }
+
+        async function testConnection() {
+            const apiUrl = document.getElementById('apiUrl').value;
+            try {
+                const response = await fetch(apiUrl + '/health_score');
+                if (response.ok) {
+                    showStatus('Connection successful!', 'success');
+                } else {
+                    showStatus('Connection failed. Please check your API URL.', 'error');
+                }
+            } catch (error) {
+                showStatus('Connection error: ' + error.message, 'error');
+            }
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + type;
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+
+        // Load saved settings
+        window.addEventListener('load', function() {
+            const saved = localStorage.getItem('zowoSettings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                document.getElementById('apiUrl').value = settings.apiUrl || '';
+                document.getElementById('refreshInterval').value = (settings.refreshInterval || 30000) / 1000;
+                document.getElementById('maxRecords').value = settings.maxRecords || 5;
+                document.getElementById('autoRefresh').value = settings.autoRefresh ? 'true' : 'false';
+                document.getElementById('theme').value = settings.theme || 'light';
+            }
+        });
+    </script>
+</body>
+</html>

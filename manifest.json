@@ -1,0 +1,15 @@
+{
+  "service": "ZohoCRM",
+  "details": {
+    "displayLabel": "ZOWO",
+    "description": "Workflow monitoring and analytics extension",
+    "version": "1.0.0"
+  },
+  "widgets": [
+    {
+      "location": "zohoCRM.module.record.detailView",
+      "url": "/dashboard.html",
+      "height": "400px"
+    }
+  ]
+}
