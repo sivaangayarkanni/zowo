@@ -13,10 +13,10 @@
     }
   ],
   "name": "zowo",
-  "baseUrl": "https://your-app.onrender.com",
+  "baseUrl": "https://zowo-1.onrender.com",
   "endpoints": {
-    "cliqWebhook": "https://your-app.onrender.com/api/cliq/webhook",
-    "welcome": "https://your-app.onrender.com/api/cliq/welcome",
-    "authCallback": "https://your-app.onrender.com/auth/callback"
+    "cliqWebhook": "https://zowo-1.onrender.com/api/cliq/webhook",
+    "welcome": "https://zowo-1.onrender.com/api/cliq/welcome",
+    "authCallback": "https://zowo-1.onrender.com/auth/callback"
   }
 }

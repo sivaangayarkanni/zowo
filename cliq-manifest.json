@@ -43,7 +43,7 @@
     }
   ],
   "bot": {
-    "webhook": "https://your-app.onrender.com/api/cliq/webhook",
-    "welcome": "https://your-app.onrender.com/api/cliq/welcome"
+    "webhook": "https://zowo-1.onrender.com/api/cliq/webhook",
+    "welcome": "https://zowo-1.onrender.com/api/cliq/welcome"
   }
 }
